@@ -1,8 +1,10 @@
 <?php
 
-session_start();
+session_start(); 
 
+// Verification présence des champs de formulaire
 if(isset($_POST['email']) && isset($_POST['password'])){
+
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
         $errors[] = 'Email invalide';
     }
@@ -11,22 +13,21 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         $errors[] = 'Mot de passe, Invalide';
     }
 
-    if(!isset($errors)){
-        try{
+    if(!isset($errors)){ 
+        try{ // Connexion à la base de donnée
             $bdd = new PDO('mysql:host=localhost;dbname=users;charset=utf8', 'root', '');
         } catch(Exception $e){
-            die('Erreur avec la BDD');
+            die('Erreur avec la BDD'); // gestion des erreurs
         }
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // gestion des erreurs sql
 
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $request = $bdd->prepare('SELECT * FROM user WHERE email = ?');
+        $request = $bdd->prepare('SELECT * FROM user WHERE email = ?'); // récupération de l'email existant
         $request->execute(array(
             $_POST['email']
         ));
-        $userInfos = $request->fetch(PDO::FETCH_ASSOC);
+        $userInfos = $request->fetch(PDO::FETCH_ASSOC); // stockage des infos utilisateur
 
-        if(!empty($userInfos)){
+        if(!empty($userInfos)){ // Vérification du couple email + mot de passe
             if(password_verify($_POST['password'], $userInfos['password'])){
                 $_SESSION["account"] = $userInfos;
                 $success = 'Vous êtes connecté';
@@ -50,7 +51,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 </head>
 <body>
     <?php
-        require 'menu.php';
+        require 'menu.php'; // insertion du menu
     ?>
     <form action="connexion.php" method="POST">
         <label for="email">E-mail</label>
@@ -61,12 +62,12 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     </form>
 
 <?php
-if(isset($errors)){
+if(isset($errors)){ // Affichage si erreur
     foreach($errors as $error){
         echo '<p>' . $error . '</p>';
     }
 } else {
-    if(isset($success)){
+    if(isset($success)){ // Affichage si succès
         echo $success;
     }
 }
