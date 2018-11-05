@@ -26,13 +26,13 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         ));
         $userInfos = $request->fetch(PDO::FETCH_ASSOC);
         var_dump($userInfos);
-    }
-
-    if($_POST['email'] == $userInfos['email']){
-        if(password_verify($_POST['password'], $userInfos['password'])){
-            $_SESSION['prenom'] = $_POST['firstname'];
+        if($_POST['email'] == $userInfos['email']){
+            if(password_verify($_POST['password'], $userInfos['password'])){
+                $_SESSION['prenom'] = $_POST['firstname'];
+            }
         }
     }
+
 }
 ?>
 
@@ -45,7 +45,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     <title>Document</title>
 </head>
 <body>
-    <form action="connexion.php" method="POST">
+    <form action="../profil.php" method="POST">
         <label for="email">E-mail</label>
         <input type="text" name="email">
         <label for="password">Password</label>
