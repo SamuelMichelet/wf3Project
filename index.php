@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Inclusion du fichier contenant la fonction de vérification du captcha
 require('recaptcha_valid.php');
 
@@ -24,7 +26,7 @@ if(isset($_POST['name']) &&
         $errors[] = 'Email invalide';
     }
 
-    if(!preg_match('#^.{3,50}$#', $_POST['password'])){
+    if(!preg_match('#^.{3,500}$#', $_POST['password'])){
         $errors[] = 'Password invalide';
     }
 
