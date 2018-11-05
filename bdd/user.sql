@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 05 nov. 2018 à 12:24
+-- Généré le :  lun. 05 nov. 2018 à 14:10
 -- Version du serveur :  10.1.29-MariaDB
 -- Version de PHP :  7.2.0
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(320) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` char(60) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `date` date NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -43,8 +43,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `ip`, `date`, `name`, `firstname`) VALUES
-(2, 'qsd@gmazil.com', '$2y$10$AGNAH04s.OLBsOQx.d4FhuLAlhHBJZr3hORc84Nf1sv', '::1', '2018-11-05', 'ananas', 'taieb'),
-(3, 'florent@gmazil.com', '$2y$10$K0a.hi63GusG8b/uA8fT4.vH7Qx3FcaT/b0E9TBBYg0', '::1', '2018-11-05', 'florent', 'taieb');
+(4, 'olivier@gmail.com', '$2y$10$6ItuAEZpJL3fczyrPeeuzeLz980RgD6Uqcd6fJ8w4xUEloQ6FxvvS', '::1', '2018-11-05', 'olivier', 'collin'),
+(5, 'florent@gmail.com', '$2y$10$gRT2oE6WZsPtsDOLjMExluWIs/29eUwLch80O4XS/1Aid/cI3muCq', '::1', '2018-02-02', 'florent', 'florent'),
+(6, 'ananas@gmail.com', '$2y$10$Io0pBrJ.DqYy.VzQwHpdCeClFK3.DfRlBLgX/55pHleHPAuRfuH3S', '::1', '1980-10-10', 'ananas', 'taieb');
 
 --
 -- Index pour les tables déchargées
@@ -64,7 +65,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
