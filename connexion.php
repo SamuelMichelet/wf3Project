@@ -28,7 +28,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         var_dump($userInfos);
         if($_POST['email'] == $userInfos['email']){
             if(password_verify($_POST['password'], $userInfos['password'])){
-                $_SESSION['prenom'] = $_POST['firstname'];
+                $_SESSION['name'] = $_POST['firstname'];
             }
         }
     }
