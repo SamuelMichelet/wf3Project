@@ -25,14 +25,18 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             $_POST['email']
         ));
         $userInfos = $request->fetch(PDO::FETCH_ASSOC);
-        var_dump($userInfos);
-        if($_POST['email'] == $userInfos['email']){
+
+        if(!empty($userInfos)){
             if(password_verify($_POST['password'], $userInfos['password'])){
-                $_SESSION['name'] = $_POST['firstname'];
+                $_SESSION["account"] = $userInfos;
+                $success = 'Vous êtes connecté';
+            } else {
+                $errors[] = 'Mot de passe Incorrect';
             }
+        } else {
+            $errors[] = 'Adresse mail inconnue';
         }
     }
-
 }
 ?>
 
@@ -45,7 +49,10 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     <title>Document</title>
 </head>
 <body>
-    <form action="profil.php" method="POST">
+    <?php
+        require 'menu.php';
+    ?>
+    <form action="connexion.php" method="POST">
         <label for="email">E-mail</label>
         <input type="text" name="email">
         <label for="password">Password</label>
@@ -57,6 +64,10 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 if(isset($errors)){
     foreach($errors as $error){
         echo '<p>' . $error . '</p>';
+    }
+} else {
+    if(isset($success)){
+        echo $success;
     }
 }
 ?>

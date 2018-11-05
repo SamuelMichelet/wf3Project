@@ -64,7 +64,7 @@ if(isset($_POST['name']) &&
 
             // Insertion du nouveau compte en BDD
             $response = $bdd->prepare('INSERT INTO user(email, password, ip, date, name, firstname  ) VALUES(?, ?, ?, ?, ?, ?)');
-           
+
             $response->execute(array(
                 $_POST['email'],
                 password_hash($_POST['password'], PASSWORD_BCRYPT),
@@ -73,7 +73,6 @@ if(isset($_POST['name']) &&
                 $_POST['name'],
                 $_POST['firstname']
             ));
-    
             // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
             if($response->rowCount() > 0){
                 $success = 'Compte créé !';
@@ -85,10 +84,7 @@ if(isset($_POST['name']) &&
             $errors[] = 'Email déjà utilisée';
         }
         //envoie du mail d'activation
-       
-
     }
-
 }
 
 ?>
@@ -104,9 +100,11 @@ if(isset($_POST['name']) &&
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-<?php include 'menu.php'; ?>
+<?php
+    require 'menu.php';
+?>
 
-    
+
 <?php
 
 // Si success n'existe pas, on affiche le formulaire, sinon ona ffiche success
