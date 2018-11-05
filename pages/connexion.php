@@ -25,12 +25,15 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             $_POST['email']
         ));
         $userInfos = $request->fetch(PDO::FETCH_ASSOC);
-        var_dump($userInfos);
-    }
 
-    if($_POST['email'] == $userInfos['email']){
-        if(password_verify($_POST['password'], $userInfos['password'])){
-            $_SESSION['prenom'] = $_POST['firstname'];
+        if(!empty($userInfos)){
+            if(password_verify($_POST['password'], $userInfos['password'])){
+                $_SESSION["account"] = $userInfos;
+            } else {
+                $errors[] = 'Mot de passe Incorrect';
+            }
+        } else {
+            $errors[] = 'Adresse mail inconnue';
         }
     }
 }
