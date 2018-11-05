@@ -1,33 +1,29 @@
+<?php
+
+// session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <style>
-        .menu li{
-            display:inline;
-            margin:3px;
-        }
-    </style>
 </head>
 <body>
     <?php
-    // Si il y a des erreurs, on les affiche, sinon on affiche les détails de l'article demandé
-    if(isset($errors)){
-        foreach($errors as $error){
-            echo '<p style="color:red;">'.$error.'</p>';
-        }
-    } else { ?>
+    if(isset($_SESSION['account'])){
+     ?>
         
-        <h1>Détail de l'article <strong><?php echo htmlspecialchars($article['title']); ?></strong> :</h1>
+        <h1>Profile de <strong><?= $_SESSION['account']['name'] . ' ' . $_SESSION['account']['firstname']; ?></strong> :</h1>
         <ul>
-            <li>Contenu : <?php echo htmlspecialchars($article['content']); ?></li>
-            <li>Auteur : <?php echo htmlspecialchars($article['author']); ?></li>
-            <li>Date : <?php echo htmlspecialchars(date('d m Y', strtotime($article['date']))); ?></li>
+            <li>Email : <?= $_SESSION['account']['email']; ?></li>
+            <li>Date : <?= date('d-m-Y', strtotime($_SESSION['account']['date'])); ?></li>
         </ul>
         <?php
+    } else {
+        echo '<h1>Connectez vous</h1><p><a href="connexion.php">connexion</a></p>';
     }
     ?>
-    <p><a href="index.php">Retour à la liste des articles</a></p>
 </body>
 </html>

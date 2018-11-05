@@ -49,7 +49,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     <title>Document</title>
 </head>
 <body>
-    <?php include 'menu.php'; ?>
+    <?php
+        require 'menu.php';
+    ?>
     <form action="connexion.php" method="POST">
         <label for="email">E-mail</label>
         <input type="text" name="email">
@@ -64,7 +66,9 @@ if(isset($errors)){
         echo '<p>' . $error . '</p>';
     }
 } else {
-    echo $success;
+    if(isset($success)){
+        echo $success;
+    }
 }
 ?>
 </body>
