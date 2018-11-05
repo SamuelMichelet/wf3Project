@@ -66,7 +66,9 @@ if(isset($errors)){
         echo '<p>' . $error . '</p>';
     }
 } else {
-    echo $success;
+    if(isset($success)){
+        echo $success;
+    }
 }
 ?>
 </body>
