@@ -9,22 +9,16 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <style>
-        .menu li{
-            display:inline;
-            margin:3px;
-        }
-    </style>
 </head>
 <body>
     <?php
     if(isset($_SESSION['account'])){
      ?>
         
-        <h1>Profile de <strong><?= $_SESSION['name'] . ' ' . $_SESSION['firstname']; ?></strong> :</h1>
+        <h1>Profile de <strong><?= $_SESSION['account']['name'] . ' ' . $_SESSION['account']['firstname']; ?></strong> :</h1>
         <ul>
-            <li>Email : <?= $_SESSION['email']; ?></li>
-            <li>Date : <?= date('d-m-Y', strtotime($_SESSION['date'])); ?></li>
+            <li>Email : <?= $_SESSION['account']['email']; ?></li>
+            <li>Date : <?= date('d-m-Y', strtotime($_SESSION['account']['date'])); ?></li>
         </ul>
         <?php
     } else {
