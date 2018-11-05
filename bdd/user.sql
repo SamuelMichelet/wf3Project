@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 05 nov. 2018 à 10:33
--- Version du serveur :  10.1.36-MariaDB
--- Version de PHP :  7.2.10
+-- Généré le :  lun. 05 nov. 2018 à 12:24
+-- Version du serveur :  10.1.29-MariaDB
+-- Version de PHP :  7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `users`
 --
-CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `users`;
 
 -- --------------------------------------------------------
 
@@ -39,6 +37,14 @@ CREATE TABLE `user` (
   `name` varchar(50) NOT NULL,
   `firstname` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `password`, `ip`, `date`, `name`, `firstname`) VALUES
+(2, 'qsd@gmazil.com', '$2y$10$AGNAH04s.OLBsOQx.d4FhuLAlhHBJZr3hORc84Nf1sv', '::1', '2018-11-05', 'ananas', 'taieb'),
+(3, 'florent@gmazil.com', '$2y$10$K0a.hi63GusG8b/uA8fT4.vH7Qx3FcaT/b0E9TBBYg0', '::1', '2018-11-05', 'florent', 'taieb');
 
 --
 -- Index pour les tables déchargées
@@ -58,7 +64,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
