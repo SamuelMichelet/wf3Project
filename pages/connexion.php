@@ -29,6 +29,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         if(!empty($userInfos)){
             if(password_verify($_POST['password'], $userInfos['password'])){
                 $_SESSION["account"] = $userInfos;
+                $success = 'Vous êtes connecté';
             } else {
                 $errors[] = 'Mot de passe Incorrect';
             }
@@ -61,6 +62,8 @@ if(isset($errors)){
     foreach($errors as $error){
         echo '<p>' . $error . '</p>';
     }
+} else {
+    echo $success;
 }
 ?>
 </body>
