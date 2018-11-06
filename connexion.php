@@ -3,6 +3,7 @@
 session_start();
 
 if(isset($_POST['email']) && isset($_POST['password'])){
+    
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
         $errors[] = 'Email invalide';
     }
