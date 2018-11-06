@@ -8,6 +8,7 @@ if(isset($_SESSION['account'])){
 
 // Inclusion du fichier contenant la fonction de vérification du captcha
 require('recaptcha_valid.php');
+require('mailfunction.php');
 
 // Si tous les champs du formulaire sont là
 if(isset($_POST['name']) &&
@@ -88,6 +89,40 @@ if(isset($_POST['name']) &&
             $errors[] = 'Email déjà utilisée';
         }
         //envoie du mail d'activation
+ 
+// Récupération des variables nécessaires au mail de confirmation	
+$email = $_POST['email'];
+$login = $_POST['password'];
+ 
+// Génération aléatoire d'une clé a amaliorer
+$key = md5(rand().time().uniqid());
+ 
+ 
+// Insertion de la clé dans la base de données (à adapter en INSERT si besoin)
+$stmt = $bdd->prepare("UPDATE user SET activate_key=:key WHERE email like :login");
+$stmt->bindParam(':key', $key);
+$stmt->bindParam(':login', $login);
+$stmt->execute();
+ 
+ 
+// Préparation du mail contenant le lien d'activation
+$destinataire = $email;
+$object = "Activer votre compte" ;
+// $entete = "From: inscription@votresite.com" ;
+ 
+// Le lien d'activation est composé du login(log) et de la clé(key)
+$content = 'Bienvenue sur VotreSite,
+ 
+Pour activer votre compte, veuillez cliquer sur le lien ci dessous
+ou copier/coller dans votre navigateur internet.
+ 
+http://wf3Project/comfirmation.php?log='.urlencode($email).'&key='.urlencode($key).'
+ 
+ 
+---------------
+Ceci est un mail automatique, Merci de ne pas y répondre.';
+ 
+sendMail($destinataire, $content, $object);
     }
 }
 
@@ -111,7 +146,7 @@ if(isset($_POST['name']) &&
 
 <?php
 
-// Si success n'existe pas, on affiche le formulaire, sinon ona ffiche success
+// Si success n'existe pas, on affiche le formulaire, sinon on affiche success
 if(!isset($success)){
 
 ?>
