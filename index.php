@@ -6,12 +6,12 @@ session_start();
 require('recaptcha_valid.php');
 
 // Si tous les champs du formulaire sont là
-if(isset($_POST['name']) && 
-   isset($_POST['firstname']) && 
-   isset($_POST['email']) && 
-   isset($_POST['password']) && 
-   isset($_POST['confirmPassword']) && 
-   isset($_POST['g-recaptcha-response'])){
+if(isset($_POST['name']) &&
+    isset($_POST['firstname']) &&
+    isset($_POST['email']) &&
+    isset($_POST['password']) &&
+    isset($_POST['confirmPassword']) &&
+    isset($_POST['g-recaptcha-response'])){
 
     // Bloc de vérification des champs
     if(!preg_match( '#^[a-z]{3,50}$#i', $_POST['name'])){
