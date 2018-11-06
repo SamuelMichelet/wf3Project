@@ -52,13 +52,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     <?php
         require 'menu.php'; // insertion du menu
     ?>
-    <form action="connexion.php" method="POST">
-        <label for="email">E-mail</label>
-        <input type="text" name="email">
-        <label for="password">Password</label>
-        <input type="text" name="password">
-        <input type="submit" value="Connexion">
-    </form>
+    
 
 <?php
 if(isset($errors)){ // Affichage si erreur
@@ -68,6 +62,16 @@ if(isset($errors)){ // Affichage si erreur
 } else {
     if(isset($success)){ // Affichage si succès
         echo $success;
+    }else{
+        ?>
+            <form action="connexion.php" method="POST">
+                <label for="email">E-mail</label>
+                <input type="text" name="email">
+                <label for="password">Password</label>
+                <input type="text" name="password">
+                <input type="submit" value="Connexion">
+            </form>
+        <?php
     }
 }
 ?>
