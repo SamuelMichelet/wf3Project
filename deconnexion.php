@@ -3,6 +3,7 @@ session_start();
 
 if(!isset($_SESSION['account'])){
     header('Location: connexion.php');
+    die();
 }
 
 unset($_SESSION['account']);
@@ -17,7 +18,7 @@ unset($_SESSION['account']);
 </head>
 <body>
     <?php
-        require 'menu.php';
+        include 'menu.php';
     ?>
 
     <p> Vous êtes désormais déconnecté </p>

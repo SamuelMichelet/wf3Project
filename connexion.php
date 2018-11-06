@@ -4,6 +4,7 @@ session_start();
 
 if(isset($_SESSION['account'])){
 header('Location: profil.php');
+die();
 }
 
 // Verification présence des champs de formulaire
@@ -22,7 +23,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
         } catch(Exception $e){
             die('Erreur avec la BDD'); // gestion des erreurs
         }
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // gestion des erreurs sql
+        // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // gestion des erreurs sql
 
         $request = $bdd->prepare('SELECT * FROM user WHERE email = ?'); // récupération de l'email existant
         $request->execute(array(
@@ -56,9 +57,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 </head>
 <body>
     <?php
-        require 'menu.php'; // insertion du menu
+        include 'menu.php'; // insertion du menu
     ?>
-    
 
 <?php
 if(isset($errors)){ // Affichage si erreur
