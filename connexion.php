@@ -2,9 +2,10 @@
 
 session_start(); 
 
+// vérification
 if(isset($_SESSION['account'])){
-header('Location: profil.php');
-die();
+    header('Location: profil.php');
+    die();
 }
 
 // Verification présence des champs de formulaire
@@ -18,11 +19,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
 
     if(!isset($errors)){ 
-        try{ // Connexion à la base de donnée
-            $bdd = new PDO('mysql:host=localhost;dbname=users;charset=utf8', 'root', '');
-        } catch(Exception $e){
-            die('Erreur avec la BDD'); // gestion des erreurs
-        }
+        require 'model.php';
         // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // gestion des erreurs sql
 
         $request = $bdd->prepare('SELECT * FROM user WHERE email = ?'); // récupération de l'email existant
@@ -61,25 +58,27 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     ?>
 
 <?php
-if(isset($errors)){ // Affichage si erreur
-    foreach($errors as $error){
-        echo '<p>' . $error . '</p>';
+    if(isset($errors)){ // Affichage si erreur
+        foreach($errors as $error){
+            echo '<p>' . $error . '</p>';
+        }
+    } else {
+        if(isset($success)){ // Affichage si succès
+            echo $success;
+        }else{
+?>
+
+            <!-- formulaire de connexion -->
+    <form action="connexion.php" method="POST">
+        <label for="email">E-mail</label>
+        <input type="text" name="email">
+        <label for="password">Password</label>
+        <input type="text" name="password">
+        <input type="submit" value="Connexion">
+    </form>
+<?php
+        }
     }
-} else {
-    if(isset($success)){ // Affichage si succès
-        echo $success;
-    }else{
-        ?>
-            <form action="connexion.php" method="POST">
-                <label for="email">E-mail</label>
-                <input type="text" name="email">
-                <label for="password">Password</label>
-                <input type="text" name="password">
-                <input type="submit" value="Connexion">
-            </form>
-        <?php
-    }
-}
 ?>
 </body>
 </html>

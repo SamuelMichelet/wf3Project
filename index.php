@@ -2,6 +2,7 @@
 
 session_start();
 
+// vérification
 if(isset($_SESSION['account'])){
     header('Location: profil.php');
     die();
@@ -51,12 +52,8 @@ if(
     if(!isset($errors)){
 
         // Connexion à la BDD
-        try{
-            $bdd = new PDO('mysql:host=localhost;dbname=users;charset=utf8', 'root', '');
-        } catch(Exception $e){
-            die('Erreur de connexion à la bdd');
-        }
-        // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        require 'model.php';
+        
 
         // Selection du compte (hypothétique) ayant déjà l'adresse email dans le formulaire
         $verifyIfExist = $bdd->prepare('SELECT * FROM user WHERE email = ?');
@@ -119,7 +116,7 @@ if(
         }
         //envoie du mail d'activation
 
-// Récupération des variables nécessaires au mail de confirmation
+    // Récupération des variables nécessaires au mail de confirmation
     }
 }
 

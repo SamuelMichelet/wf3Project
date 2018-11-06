@@ -1,22 +1,21 @@
 <?php
+
+    // Vérification
     if(isset($_GET['id']) && isset($_GET['key'])){
 
-        if(!is_int($_GET['id']) || $_GET['id'] < 0){
+        if(!is_int($_GET['id']) || $_GET['id'] < 1){
             $errors[] = 'id invalide';
         }
 
-        if(!preg_match('#^[0-9a-f]{32}$#', $_GET['key'])){
+        if(!preg_match('#^[0-9a-f]{32}$#i', $_GET['key'])){
             $errors[] = 'Clef invalide';
         }
 
         if(!isset($errors)){
-            try{ // Connexion à la base de donnée
-                $bdd = new PDO('mysql:host=localhost;dbname=users;charset=utf8', 'root', '');
-            } catch(Exception $e){
-                die('Erreur avec la BDD'); // gestion des erreurs
-            }
-            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // gestion des erreurs sql
+            require 'model.php';
+            // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 
+            // requête préparée confirmation de compte
             $request = $bdd->prepare('SELECT * FROM user WHERE activate_key = ? AND id = ?');
             $request->execute(array(
                 $_GET['key'],
@@ -26,13 +25,11 @@
 
             if(!empty($user)){
                 $success = 'Votre compte est validé';
+                $comfirm = $bdd->query('UPDATE user SET  active_account = 1');
             } else {
                 $fail = 'Erreur votre compte n\'est pas validé';
             }
-
-        } else {
-            header('Location: home.php');
-        }
+        } 
     }
 ?>
 
@@ -46,6 +43,8 @@
 </head>
 <body>
     <?php
+
+    // message de succès ou d'échec
         if(isset($success)){
             echo $success;
         } else {

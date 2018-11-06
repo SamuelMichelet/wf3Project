@@ -21,7 +21,6 @@ function sendMail($destinataire,$content,$object){
             $message.= $crlf.$message_html.$crlf;
             $message.= $crlf."--".$boundary."--".$crlf;
             $message.= $crlf."--".$boundary."--".$crlf;
-            mail($mail,$sujet,$message,$header);
-            return $mail;
+            mail($mail,$sujet,$message,$header); 
 }
 

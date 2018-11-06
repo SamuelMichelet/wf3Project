@@ -1,11 +1,13 @@
 <?php
 session_start();
 
+// vérification
 if(!isset($_SESSION['account'])){
     header('Location: connexion.php');
     die();
 }
 
+// suppression de la session account
 unset($_SESSION['account']);
 ?>
 <!DOCTYPE html>

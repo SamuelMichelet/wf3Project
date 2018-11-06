@@ -1,16 +1,12 @@
 <?php
     
+    // Vérification
     if(isset($_POST['newMdp'])){
 
-            // Connexion à la BDD
-                try{
-                    $bdd = new PDO('mysql:host=localhost;dbname=users;charset=utf8', 'root', '');
-                } catch(Exception $e){
-                    die('Erreur de connexion à la bdd');
-                }
-                $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Insertion à la BDD
+            require 'model.php';
+                // $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-
         $newMDP = $bdd->prepare('UPDATE user SET password :mdp');
         $newMDP->bindValue('mdp', $_POST['newMdp']);
     }
@@ -25,6 +21,8 @@
     <title>Document</title>
 </head>
 <body>
+
+    <!-- validation du nouveau mdp -->
     <form action="changeMdp.php" method="POST">
         <input type="text" name="newMdp" placeholder="nouveau mdp">
         <input type="submit">
