@@ -2,6 +2,10 @@
 
 session_start();
 
+if(isset($_SESSION['account'])){
+    header('Location: profil.php');
+}
+
 // Inclusion du fichier contenant la fonction de vérification du captcha
 require('recaptcha_valid.php');
 
@@ -34,8 +38,8 @@ if(isset($_POST['name']) &&
         $errors[] = 'Confirmation password invalide';
     }
 
-     // Vérification que le captcha soit valide
-     if(!recaptcha_valid($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR'])){
+    // Vérification que le captcha soit valide
+    if(!recaptcha_valid($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR'])){
         $errors[] = 'Recaptcha invalide';
     }
 

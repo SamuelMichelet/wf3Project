@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['account'])){
+    header('Location: connexion.php');
+}
+
 unset($_SESSION['account']);
 ?>
 <!DOCTYPE html>

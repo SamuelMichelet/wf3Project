@@ -2,6 +2,10 @@
 
 session_start(); 
 
+if(isset($_SESSION['account'])){
+header('Location: profil.php');
+}
+
 // Verification présence des champs de formulaire
 if(isset($_POST['email']) && isset($_POST['password'])){
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
@@ -39,6 +43,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
